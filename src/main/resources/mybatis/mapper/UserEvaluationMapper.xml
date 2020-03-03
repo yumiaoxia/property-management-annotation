@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.property.management.mapper.UserEvaluationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.property.management.entity.UserEvaluation">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="evaluation_content" property="evaluationContent"/>
+        <result column="date" property="date"/>
+        <result column="house_num" property="houseNum"/>
+        <result column="order_content" property="orderContent"/>
+        <result column="state" property="state"/>
+    </resultMap>
+
+</mapper>

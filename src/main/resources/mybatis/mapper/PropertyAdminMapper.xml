@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.property.management.mapper.PropertyAdminMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.property.management.entity.PropertyAdmin">
+        <id column="proadmin_id" property="proadminId"/>
+        <result column="proadmin_pass" property="proadminPass"/>
+        <result column="proadmin_name" property="proadminName"/>
+        <result column="proadmin_sex" property="proadminSex"/>
+        <result column="proadmin_phone" property="proadminPhone"/>
+        <result column="position" property="position"/>
+        <result column="identity" property="identity"/>
+    </resultMap>
+
+</mapper>
