@@ -1,7 +1,4 @@
-const api = require("./api");
-var app = getApp();
 
-//获取缓存值方法 
 function GetStorage(keyRequestHandler) {
     keyRequest(keyRequestHandler)
 }
@@ -52,114 +49,7 @@ function POST(requestHandler) {
 function request(method, requestHandler) {
     var params = requestHandler.params;
     var url = requestHandler.url;
-    //access_token值获取
-    GetStorage({
-        success: function (res) {
-            console.log("本地存储access_token值获取成功", res)
-            if (!requestHandler.notShowLoading) {
-                wx.showLoading({
-                    title: '加载中',
-                    mask: true
-                })
-            }
-            wx.request({
-                url: url,
-                data: params,
-                header: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + res.data,
-                },
-                method: method, // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-                // header: {}, // 设置请求的 header
-                success: function (res) {
-                    console.log(res);
-                    if (res.statusCode == "200") {
-                        if (res.data.code == "0") {
-                            if (requestHandler.success) {
-                                requestHandler.success(res)
-                            }
-                        } else if (res.data.code == "0003") {
-                            const pages = getCurrentPages();
-                            const currentPage = pages[pages.length - 1]
-                            //用户登录被踢，需要重新登录
-                            console.log("用户被踢，需要重新登录");
-                            wx.clearStorage({
-                                key: 'access_token',
-                                success: function (res) {
-                                    wx.redirectTo({
-                                        url: '/pages/login/login?from=' + currentPage.route + '&ops=' + JSON.stringify(currentPage.options),
-                                    })
-                                },
-                            })
-                        } else {
-                            if (requestHandler.fail) {
-                                requestHandler.fail(res)
-                            } else {
-                                console.log("接口异常", res)
-                                wx.showModal({
-                                    title: '温馨提醒',
-                                    content: res.data.message,
-                                    showCancel: false,
-                                })
-                            }
-                        }
-                    } else {
-                        if (requestHandler.fail) {
-                            requestHandler.fail(res)
-                        } else {
-                            console.log("网络异常", res)
-                            wx.showModal({
-                                title: '温馨提醒',
-                                content: '系统出错，请联系管理员',
-                                showCancel: false,
-                            })
-                        }
-                    }
-                },
-                fail: function (res) {
-                    if (requestHandler.fail) {
-                        requestHandler.fail(res)
-                    } else {
-                        // wx.getNetworkType({
-                        //   success: function (res) {
-                        //     console.log("返回网络类型", res.networkType)
-                        //     // 返回网络类型, 有效值：
-                        //     // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-                        //     let networkType = res.networkType;
-                        //     if (networkType == 'none' || networkType == 'unknown') {
-                        //       wx.navigateTo({
-                        //         url: '../noNet/noNet',
-                        //       })
-                        //     } else {
-                        //       console.log("网络异常", res)
-                        //       wx.showModal({
-                        //         title: '温馨提醒',
-                        //         content: res.errMsg,
-                        //         showCancel: false,
-                        //       })
-                        //     }
-                        //   }
-                        // })
 
-                    }
-                },
-                complete: function (res) {
-                    if (!requestHandler.notShowLoading) {
-                        wx.hideLoading()
-                    }
-                    if (requestHandler.complete) {
-                        requestHandler.complete(res)
-                    }
-                }
-            })
-        },
-        fail: res => {
-            console.log("本地存储access_token值获取失败", res)
-            wx.redirectTo({
-                url: '/pages/login/login',
-            })
-        }
-    });
 }
 
 function chooseImageAndUpload(requestHandler) {

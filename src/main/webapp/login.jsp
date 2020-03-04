@@ -86,9 +86,10 @@
         <h3 class="login_title">Hi,欢迎使用小区智能服务平台</h3>
         <p>请登录</p>
         <br/>
-            <form method="post" action="login.js">
-                <select class="role_select">
-                    <option>物业管理员</option>
+        <form action="" method="post" name="loginForm">
+            <select class="role_select" id="role">
+                <option value="ADMIN">系统管理员</option>
+                <option value="PROPERTY_ADMIN">物业管理员</option>
                 </select>
                 <p>
                     <input type="text" id="username" class="text_field" placeholder="用户"/>
@@ -99,23 +100,64 @@
                 </p>
                 <br/>
                 <div id="login_control">
-                    <input type="button" id="btn_login" value="登录" οnclick="login();"/>
+                    <input type="submit" id="btn_login" value="登录" onsubmit="submitForm()"/>
                 </div>
             </form>
     </div>
-    <script type="text/javascript">
-        function login() {
-            var username = document.getElementById("username");
-            var pass = document.getElementById("password");
-            if (username.value == "") {
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const role = loginForm.role.value;
+        const username = loginForm.username.value;
+        const password = loginForm.password.value;
+
+        function submitForm() {
+            if (checkForm()) {
+                if (role === "ADMIN") {
+                    const url = api.adminLogin;
+                    axios({
+                        url: "http：//localhost:8080/api/admin/login",
+                        method: 'post',
+                        data: {
+                            adminId: username,
+                            password: password
+                        },
+                        transformRequest: [function (data) {
+                            let ret = '';
+                            for (let it in data) {
+                                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+                            }
+                            return ret
+                        }],
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(
+                        function (reseponse) {
+                            console.log(reseponse)
+                        }
+                    ).catch(function (error) {
+                        console.log(error)
+                    });
+                }
+            }
+        }
+
+
+        function checkForm() {
+            alert(name + pwd)
+            if (name === "" || name == null) {
                 alert("请输入用户名");
-            } else if (pass.value  == "") {
+                loginForm.name.focus();
+                return false;
+            } else if (pwd === "" || pwd == null) {
                 alert("请输入密码");
-            } else if(username.value == "admin" && pass.value == "123456"){
-                window.location.href="welcome.html";
-            } else {
-                alert("请输入正确的用户名和密码！")
-            }}
+                loginForm.pwd.focus();
+                return false;
+            }
+            return true;
+        }
 
     </script>
 
