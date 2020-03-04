@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
@@ -26,6 +27,8 @@ public class SpringConfig {
 
     @Bean
     public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setLocale(LocaleContextHolder.getLocale());
         return new ObjectMapper();
     }
 

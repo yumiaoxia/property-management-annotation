@@ -1,22 +1,24 @@
 package com.example.property.management.web.command;
 
-import org.hibernate.validator.constraints.Length;
+
+
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class HouseCreate {
 
     /**
      * 房号
      */
-    @Length(max = 4)
+    @Size(max = 4)
     @NotBlank
     private String houseNum;
 
     /**
      * 房间的入住状态
      */
-    @Length(max = 2)
+    @Size(max = 2)
     private String houseState;
 
     public String getHouseNum() {

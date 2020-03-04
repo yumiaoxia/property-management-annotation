@@ -1,17 +1,17 @@
 package com.example.property.management.web.command;
 
-import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class BulletinCreate {
 
-    @Length(max = 10)
+    @Size(max = 10)
     private String bulletinId;
     /**
      * 小区公告的标题
      */
-    @Length(max = 50)
+    @Size(max = 50)
     private String title;
 
     /**
@@ -22,7 +22,7 @@ public class BulletinCreate {
     /**
      * 小区公告的具体内容
      */
-    @Length(max = 500)
+    @Size(max = 500)
     private String content;
 
     public String getBulletinId() {
