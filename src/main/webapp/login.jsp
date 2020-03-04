@@ -82,85 +82,73 @@
     </style>
 </head>
 <body>
-    <div id="login_frame" class="login-box">
-        <h3 class="login_title">Hi,欢迎使用小区智能服务平台</h3>
-        <p>请登录</p>
+<div id="login_frame" class="login-box">
+    <h3 class="login_title">Hi,欢迎使用小区智能服务平台</h3>
+    <p>请登录</p>
+    <br/>
+    <form action="" method="post" id="loginForm">
+        <select class="role_select" name="role">
+            <option value="ADMIN">系统管理员</option>
+            <option value="PROPERTY_ADMIN">物业管理员</option>
+        </select>
+        <p>
+            <input type="text" name="username" class="text_field" placeholder="用户"/>
+        </p>
         <br/>
-        <form action="" method="post" name="loginForm">
-            <select class="role_select" id="role">
-                <option value="ADMIN">系统管理员</option>
-                <option value="PROPERTY_ADMIN">物业管理员</option>
-                </select>
-                <p>
-                    <input type="text" id="username" class="text_field" placeholder="用户"/>
-                </p>
-                <br/>
-                <p>
-                    <input type="password" id="password" class="text_field" placeholder="密码"/>
-                </p>
-                <br/>
-                <div id="login_control">
-                    <input type="submit" id="btn_login" value="登录" onsubmit="submitForm()"/>
-                </div>
-            </form>
-    </div>
+        <p>
+            <input type="password" name="password" class="text_field" placeholder="密码"/>
+        </p>
+        <br/>
+        <div id="login_control">
+            <input type="button" id="btn_login" value="登录"/>
+        </div>
+    </form>
+</div>
 
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        const role = loginForm.role.value;
-        const username = loginForm.username.value;
-        const password = loginForm.password.value;
-
-        function submitForm() {
-            if (checkForm()) {
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btn_login").on("click", function () {
+            const role = loginForm.role.value;
+            const username = loginForm.username.value;
+            const password = loginForm.password.value;
+            if (checkForm(username, password)) {
                 if (role === "ADMIN") {
-                    const url = api.adminLogin;
-                    axios({
-                        url: "http：//localhost:8080/api/admin/login",
-                        method: 'post',
-                        data: {
-                            adminId: username,
-                            password: password
+                    $.ajax({
+                        url: api.adminLogin,
+                        data: $("#loginForm").serialize(),
+                        type: 'POST',
+                        success: function (response) {
+                            console.log("response——>" + JSON.stringify(response));
                         },
-                        transformRequest: [function (data) {
-                            let ret = '';
-                            for (let it in data) {
-                                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-                            }
-                            return ret
-                        }],
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                        error: function (error) {
+                            console.log("error->" + JSON.stringify(error));
                         }
-                    }).then(
-                        function (reseponse) {
-                            console.log(reseponse)
-                        }
-                    ).catch(function (error) {
-                        console.log(error)
-                    });
+                    })
                 }
             }
-        }
+        })
 
 
-        function checkForm() {
-            alert(name + pwd)
-            if (name === "" || name == null) {
+        function checkForm(username, password) {
+            if (username === "" || username == null) {
                 alert("请输入用户名");
-                loginForm.name.focus();
+                loginForm.username.focus();
                 return false;
-            } else if (pwd === "" || pwd == null) {
+            } else if (password === "" || password == null) {
                 alert("请输入密码");
-                loginForm.pwd.focus();
+                loginForm.password.focus();
                 return false;
             }
             return true;
         }
+    })
 
-    </script>
 
+</script>
 
 
 </body>

@@ -20,13 +20,13 @@ public class AdminUserDetailsService implements UserDetailsService {
     private IAdminService adminService;
 
     @Override
-    public UserDetails loadUserByUsername(String adminId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         QueryWrapper<Admin> wrapper = new QueryWrapper<>();
-        wrapper.eq("admin_id", adminId);
-        Admin admin = adminService.getById(adminId);
+        wrapper.eq("admin_id", username);
+        Admin admin = adminService.getOne(wrapper);
         if (admin == null) {
-            throw new UsernameNotFoundException(String.format("Admin Not Found —— %s", adminId));
+            throw new UsernameNotFoundException(String.format("Admin Not Found —— %s", username));
         }
-        return new AdminSecurityDto(adminId, admin.getAdminName(), admin.getAdminPass(), Collections.singleton(new SimpleGrantedAuthority("ADMIN")));
+        return new AdminSecurityDto(username, admin.getAdminName(), admin.getAdminPass(), Collections.singleton(new SimpleGrantedAuthority("ADMIN")));
     }
 }

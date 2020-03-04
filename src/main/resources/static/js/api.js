@@ -1,7 +1,8 @@
-const domain = 'http://localhost:8080/api/';
+const domain = 'http://localhost:8080';
 var base = domain + '/api';
 const api = {
     domain: domain,
-    base: api,
+    base: base,
+    adminLogin: `${base}/admin/login`,
     personalDetail: `${base}/admin/detail`,
 }
