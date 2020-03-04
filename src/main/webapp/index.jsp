@@ -16,32 +16,44 @@
             background-color: #fff;
         }
 
-        .left-slider{
-            background-color: #fff;
-            float: left;
-            width: 240px;
-            height: 800px;
-        }
-
-        .main-container{
+        .main-container {
             background-color: #e3e3e3;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
         }
 
-        .content {
-            padding: 25px;
+        .left-slider {
+            background-color: #fff;
+            width: 240px;
         }
+
+        .main {
+            position: relative;
+            width: 100%;
+        }
+
+        .content-pane {
+            margin: 20px;
+            padding: 25px;
+            height: 100%;
+            background-color: #fff;
+        }
+
     </style>
 </head>
 <body>
 <div class="header-container">
-    <%@ include file="header.jsp"%>
+    <%@ include file="header.jsp" %>
 </div>
 <div class="main-container">
     <div class="left-slider">
-        <%@ include file="menuSlider.jsp"%>
+        <%@ include file="menuSlider.jsp" %>
     </div>
-    <div id="content-box" class="content">
-
+    <div id="content-box" class="main">
+        <div class="content-pane">
+            <%@ include file="feeManagement.jsp" %>
+        </div>
     </div>
 </div>
 

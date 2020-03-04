@@ -11,8 +11,8 @@
     <title>欢迎使用智能小区服务平台</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<%@ include file="menuSlider.jsp" %>
+<%@ include file="../../../header.jsp" %>
+<%@ include file="../../../menuSlider.jsp" %>
 <div id="main-container" class="content">
 
 </div>
