@@ -35,10 +35,10 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.mvcMatcher("/api/**")
                 .authorizeRequests()
-                .mvcMatchers("/api/admin/login", "/api/propertyAdmin/login").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/api/admin/login", "/api/propertyAdmin/login").permitAll()
+                .antMatchers("/api/**").hasAnyAuthority("ADMIN", "PROADMIN")
                 .and()
                 .authenticationProvider(authenticationProvider())
                 .formLogin()
