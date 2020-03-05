@@ -80,6 +80,10 @@
             background-color: #e3e3e3;
         }
     </style>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/network.js"></script>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div id="login_frame" class="login-box">
@@ -88,8 +92,8 @@
     <br/>
     <form action="" method="post" id="loginForm">
         <select class="role_select" name="role">
-            <option value="ADMIN">系统管理员</option>
-            <option value="PROPERTY_ADMIN">物业管理员</option>
+            <option value="1">系统管理员</option>
+            <option value="2">物业管理员</option>
         </select>
         <p>
             <input type="text" name="username" class="text_field" placeholder="用户"/>
@@ -106,9 +110,7 @@
 </div>
 
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/static/js/api.js"></script>
-<script src="/static/js/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript">
     $(function () {
         $("#btn_login").on("click", function () {
@@ -116,18 +118,23 @@
             const username = loginForm.username.value;
             const password = loginForm.password.value;
             if (checkForm(username, password)) {
-                if (role === "ADMIN") {
-                    $.ajax({
+                if (role === "1") {
+                    network.post({
                         url: api.adminLogin,
                         data: $("#loginForm").serialize(),
-                        type: 'POST',
                         success: function (response) {
-                            console.log("response——>" + JSON.stringify(response));
+                            localStorage.setItem("currentUser", JSON.stringify(response.data));
+                            localStorage.setItem("roleType", "1");
+                            window.location.href = "main.jsp"
                         },
                         error: function (error) {
-                            console.log("error->" + JSON.stringify(error));
+                            console.log("登录失败：" + JSON.stringify(error))
+                            alert(error.message)
                         }
                     })
+
+                } else if (role === "2") {
+
                 }
             }
         })

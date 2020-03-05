@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sherman
-  Date: 2020/3/4
-  Time: 10:15
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -55,8 +49,6 @@
             font-size: 0.8em;
             color: #3BD9FF;
         }
-
-
     </style>
 </head>
 <body>
@@ -64,39 +56,73 @@
     <h4>个人信息</h4>
     <br/>
     <p class="oper-tip"><a>查看/修改</a></p>
-    <form action="" id="personalForm" class="personal-form">
+    <form id="personalForm" class="personal-form">
         <label>
             <p>管理员工号</p>
-            <input type="text" class="text-field"/>
+            <input type="text" class="text-field" name="id"/>
         </label>
         <label>
             <p>管理员类型</p>
-            <select name="" class="text-field" disabled>
-                <option>系统管理员</option>
-                <option>物业管理员</option>
+            <select class="text-field" name="type" onselect="2" disabled>
+                <option value="1">系统管理员</option>
+                <option value="2">物业管理员</option>
             </select>
         </label>
         <label>
             <p>管理员性别</p>
-            <select name="" class="text-field" disabled>
-                <option>男</option>
-                <option>女</option>
+            <select name="sex" class="text-field" onselect="2" disabled>
+                <option value="1">男</option>
+                <option value="2">女</option>
             </select>
         </label>
         <label>
             <p>管理员电话号码</p>
-            <input type="text" class="text-field"/>
+            <input type="text" class="text-field" name="phone"/>
         </label>
         <label>
             <p>管理员职称</p>
-            <input type="text" class="text-field"/>
+            <input type="text" class="text-field" name="position"/>
         </label>
         <label>
             <p>管理员身份证号码</p>
-            <input type="text" class="text-field"/>
+            <input type="text" class="text-field" name="identity"/>
         </label>
         <input class="btn-submit" type="submit" value="提交">
     </form>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        init();
+
+        function init() {
+            let currentUser = localStorage.getItem("currentUser");
+            const roleType = localStorage.getItem("roleType")
+            if (currentUser) {
+                let userDetailUrl;
+                if (roleType && roleType === "1") {
+                    userDetailUrl = api.adminDetail;
+                } else if (roleType && roleType === "2") {
+                    userDetailUrl = api.peopertyAdminDetail;
+                }
+                let userObj = JSON.parse(currentUser);
+                network.get({
+                    url: api.adminDetail + "/" + userObj.username,
+                    success: (resonse) => {
+                        if (resonse.success) {
+                            let user = resonse.data;
+                            personalForm.adminId.value = roleType === "1" ? user.adminId : proadminId;
+                            personalForm.type.value = roleType
+                            personalForm.sex.value = roleType === "1" ? user.adminSex : user.proadminSex;
+                        } else {
+                            alert(resonse.message)
+                        }
+                    }
+                })
+            }
+
+        }
+    })
+</script>
 </body>
 </html>

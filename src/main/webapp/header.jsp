@@ -44,7 +44,7 @@
 <body>
 <div class="header">
     <h2 class="app-title">智能小区服务系统</h2>
-    <p>下午好,XXXXX</p>
+    <p>下午好,<span id="current-user"></span></p>
 </div>
 
 </body>

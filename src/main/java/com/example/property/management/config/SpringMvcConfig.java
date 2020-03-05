@@ -21,7 +21,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp().prefix("/WEB-INF/views/page/").suffix(".jsp");
+        registry.jsp().prefix("/WEB-INF/view/page/").suffix(".jsp");
 
     }
 

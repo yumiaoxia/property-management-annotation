@@ -1,5 +1,6 @@
 package com.example.property.management.web.application;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.property.management.entity.Admin;
 import com.example.property.management.service.IAdminService;
@@ -27,7 +28,9 @@ public class AdminApplicationService {
 
     @Transactional(readOnly = true)
     public AdminDto detail(String adminId) {
-        Admin admin = adminService.getById(adminId);
+        QueryWrapper<Admin> wrapper = new QueryWrapper<>();
+        wrapper.eq("admin_id", adminId);
+        Admin admin = adminService.getOne(wrapper);
         return DtoTransFormer.to(AdminDto.class).apply(admin);
     }
 }

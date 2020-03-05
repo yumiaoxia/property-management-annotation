@@ -1,9 +1,7 @@
 package com.example.property.management.config;
 
-import com.example.property.management.security.AccessDeniedJsonHandler;
-import com.example.property.management.security.AdminUserDetailsService;
-import com.example.property.management.security.DefaultLogoutSuccessHandler;
-import com.example.property.management.security.LoginRequiredJsonAuthenticationEntryPoint;
+import com.example.property.management.security.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -11,20 +9,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import javax.annotation.Resource;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
+    @Autowired
     private AdminUserDetailsService adminUserDetailsService;
 
     @Override
@@ -37,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(adminUserDetailsService);
-        authenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        authenticationProvider.setPasswordEncoder(new NoPasswordEncoder());
         return authenticationProvider;
     }
 
@@ -79,12 +71,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new SimpleUrlAuthenticationSuccessHandler();
+        return new AuthenticationSuccessHandler();
     }
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new SimpleUrlAuthenticationFailureHandler();
+        return new AuthenticationFailureHandler();
     }
 
 }

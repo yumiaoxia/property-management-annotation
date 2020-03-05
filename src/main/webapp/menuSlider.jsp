@@ -19,12 +19,6 @@
             text-decoration-line: none;
         }
 
-        .menu-item-container a {
-            display: inline-block;
-            height: 40px;
-            line-height: 40px;
-            padding: 0 25px;
-        }
 
         .menu-item:hover {
             background-color: #e3e3e3;
@@ -34,8 +28,12 @@
             background-color: #e3e3e3;
         }
 
-
-
+        .menu-item a {
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 25px;
+        }
     </style>
 </head>
 <body>
@@ -44,7 +42,7 @@
         <span>菜单</span>
     </div>
     <ul class="menu-item-container">
-        <li class="menu-item" onclick="listOwner()">
+        <li class="menu-item">
             <a>业主管理</a>
         </li>
         <li class="menu-item">
@@ -56,22 +54,13 @@
         <li class="menu-item">
             <a>物业缴费管理</a>
         </li>
-        <li>
+        <li class="menu-item">
             <a>小区公告管理</a>
         </li>
-        <li class="menu-item" onclick="personalDetail()">
-            <a>个人信息</a>
+        <li class="menu-item">
+            <a id="personal-menu-item">个人信息</a>
         </li>
     </ul>
 </div>
-<script src="${pageContext.request.contextPath}/js/api.js"></script>
-<script type="text/javascript" src=""></script>
-<script type="text/javascript">
-    function personalDetail() {
-        alert("1")
-       alert(api.personalDetail.toString())
-    }
-</script>
-
 </body>
 </html>

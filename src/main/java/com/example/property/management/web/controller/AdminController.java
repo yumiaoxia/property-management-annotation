@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -53,16 +52,8 @@ public class AdminController {
         return ApiPageResponse.createPageSuccess(result);
     }
 
-    @ApiOperation("首页")
-    @GetMapping("/index")
-    public ModelAndView detail() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:/index");
-        return mv;
-    }
-
     @ApiOperation("详情")
-    @GetMapping("/{adminId}")
+    @GetMapping("/detail/{adminId}")
     public ApiResponse<AdminDto> detail(@PathVariable String adminId) {
         AdminDto result = adminApplicationService.detail(adminId);
         return ApiResponse.createSuccess(result);
