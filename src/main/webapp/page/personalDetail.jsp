@@ -63,14 +63,14 @@
         </label>
         <label>
             <p>管理员类型</p>
-            <select class="text-field" name="type" onselect="2" disabled>
+            <select class="text-field" name="type" onselect="2">
                 <option value="1">系统管理员</option>
                 <option value="2">物业管理员</option>
             </select>
         </label>
         <label>
             <p>管理员性别</p>
-            <select name="sex" class="text-field" onselect="2" disabled>
+            <select name="sex" class="text-field" onselect="2">
                 <option value="1">男</option>
                 <option value="2">女</option>
             </select>
@@ -97,25 +97,27 @@
 
         function init() {
             let currentUser = localStorage.getItem("currentUser");
-            const roleType = localStorage.getItem("roleType")
             if (currentUser) {
                 let userDetailUrl;
-                if (roleType && roleType === "1") {
+                let adminType = currentUser.adminType;
+                if (adminType && adminType === 1) {
                     userDetailUrl = api.adminDetail;
-                } else if (roleType && roleType === "2") {
+                } else if (adminType && adminType === 2) {
                     userDetailUrl = api.peopertyAdminDetail;
                 }
                 let userObj = JSON.parse(currentUser);
                 network.get({
-                    url: api.adminDetail + "/" + userObj.username,
-                    success: (resonse) => {
-                        if (resonse.success) {
-                            let user = resonse.data;
-                            personalForm.adminId.value = roleType === "1" ? user.adminId : proadminId;
-                            personalForm.type.value = roleType
-                            personalForm.sex.value = roleType === "1" ? user.adminSex : user.proadminSex;
+                    url: api.adminDetail + "/" + userObj.adminId,
+                    success: (response) => {
+                        if (response.success) {
+                            let user = response.data;
+                            personalForm.adminId.value = user.id;
+                            personalForm.type.value = currentUser.adminType;
+                            personalForm.sex.value = user.sex;
+                            personalForm.phone.value = user.phone;
+                            personalForm.identity.value = user.identity;
                         } else {
-                            alert(resonse.message)
+                            alert(response.message)
                         }
                     }
                 })

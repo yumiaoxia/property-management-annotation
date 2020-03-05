@@ -1,12 +1,11 @@
 package com.example.property.management.web.dto;
 
-import com.example.property.management.entity.Admin;
+import com.example.property.management.entity.PropertyAdmin;
 import com.itsherman.dto.assembler.annotations.DtoModel;
 import com.itsherman.dto.assembler.annotations.DtoProperty;
 
-@DtoModel(from = Admin.class)
-public interface AdminDto {
-
+@DtoModel(from = PropertyAdmin.class)
+public interface ProAdminDto {
     /**
      * 管理员工号，也是登录系统的账号
      */
@@ -16,25 +15,25 @@ public interface AdminDto {
     /**
      * 管理员的的登录密码
      */
-    @DtoProperty("adminPass")
+    @DtoProperty("proadminPass")
     String getPass();
 
     /**
      * 管理员的姓名
      */
-    @DtoProperty("adminName")
+    @DtoProperty("proadminName")
     String getName();
 
     /**
      * 管理员的性别
      */
-    @DtoProperty("adminSex")
+    @DtoProperty("proadminSex")
     String getSex();
 
     /**
      * 管理员的电话号码
      */
-    @DtoProperty("adminPhone")
+    @DtoProperty("proadminPhone")
     String getPhone();
 
     /**

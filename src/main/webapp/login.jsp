@@ -91,7 +91,8 @@
     <p>请登录</p>
     <br/>
     <form action="" method="post" id="loginForm">
-        <select class="role_select" name="role">
+        <select class="role_select" onselect="0" name="role">
+            <option value="0">请选择</option>
             <option value="1">系统管理员</option>
             <option value="2">物业管理员</option>
         </select>
@@ -110,7 +111,6 @@
 </div>
 
 
-
 <script type="text/javascript">
     $(function () {
         $("#btn_login").on("click", function () {
@@ -118,24 +118,24 @@
             const username = loginForm.username.value;
             const password = loginForm.password.value;
             if (checkForm(username, password)) {
-                if (role === "1") {
-                    network.post({
-                        url: api.adminLogin,
-                        data: $("#loginForm").serialize(),
-                        success: function (response) {
+                network.post({
+                    url: api.adminLogin,
+                    data: "username=" + role + "-" + username + "&password=" + password,
+                    success: function (response) {
+                        if (response.success) {
                             localStorage.setItem("currentUser", JSON.stringify(response.data));
-                            localStorage.setItem("roleType", "1");
                             window.location.href = "main.jsp"
-                        },
-                        error: function (error) {
-                            console.log("登录失败：" + JSON.stringify(error))
-                            alert(error.message)
+                        } else {
+                            alert(response.message);
+                            loginForm.role.value = "0";
+                            loginForm.username.value = "";
+                            loginForm.password.value = "";
                         }
-                    })
-
-                } else if (role === "2") {
-
-                }
+                    },
+                    error: function (error) {
+                        alert("网络错误")
+                    }
+                })
             }
         })
 

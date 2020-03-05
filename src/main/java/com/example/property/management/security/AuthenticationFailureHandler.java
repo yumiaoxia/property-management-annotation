@@ -74,6 +74,7 @@ public class AuthenticationFailureHandler implements org.springframework.securit
         }
 
         ApiResponse<Void> apiResponse = new ApiResponse<>();
+        apiResponse.setSuccess(false);
         apiResponse.setCode(ErrorCode.AUTHENTICATION_ERROR);
         apiResponse.setMessage(message);
 

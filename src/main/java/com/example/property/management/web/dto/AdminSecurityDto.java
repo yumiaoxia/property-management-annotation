@@ -7,19 +7,27 @@ import java.util.Collection;
 
 public class AdminSecurityDto extends User {
 
-    private String adminName;
+    private String adminId;
 
-    public AdminSecurityDto(String adminId, String adminName, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(adminId, password, authorities);
-        this.adminName = adminName;
+    private Integer adminType;
+
+    public AdminSecurityDto(String adminId, String adminName, Integer adminType, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(adminName, password, authorities);
+        this.adminId = adminId;
+        this.adminType = adminType;
     }
 
-    public AdminSecurityDto(String adminId, String adminName, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        super(adminId, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-        this.adminName = adminName;
+    public AdminSecurityDto(String adminId, String adminName, Integer adminType, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(adminName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        this.adminId = adminId;
+        this.adminType = adminType;
     }
 
-    public String getAdminName() {
-        return adminName;
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public Integer getAdminType() {
+        return adminType;
     }
 }

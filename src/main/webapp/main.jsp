@@ -40,13 +40,31 @@
     <script src="/static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-            let cu
-            console.log("currentUser" + JSON.stringify(currentUser));
-            $("#current-user").html(admin.adminName);
-            $("#personal-menu-item").on("click", function () {
-                $(".content-pane").empty().load("personalDetail.jsp");
-            })
+            init();
+
+            function init() {
+                let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                console.log("currentUser" + JSON.stringify(currentUser));
+                $("#current-user").html(currentUser.username);
+                addMenuClickListener()
+
+            }
+
+            function addMenuClickListener() {
+                menuClickHandle("#owner-menu-item", "")
+                menuClickHandle("tenant-menu-item", "")
+                menuClickHandle("#owner-view-menu-item", "")
+                menuClickHandle("#bulletin-menu-item", "")
+                menuClickHandle("#personal-menu-item", "/page/personalDetail.jsp");
+                menuClickHandle("#fee-menu-item", "/page/feeManagement.jsp");
+            }
+
+            function menuClickHandle(selectorName, fileName) {
+                $(selectorName).on("click", function () {
+                    $(".content-pane").empty().load(fileName);
+                })
+            }
+
 
         })
     </script>

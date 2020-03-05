@@ -1,7 +1,13 @@
 package com.example.property.management.web.controller;
 
 
+import com.example.property.management.web.application.PropertyAdminApplicationService;
+import com.example.property.management.web.dto.ProAdminDto;
+import com.example.property.management.web.response.ApiResponse;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -16,5 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/propertyAdmin")
 public class PropertyAdminController {
 
+    private final PropertyAdminApplicationService propertyAdminApplicationService;
+
+    public PropertyAdminController(PropertyAdminApplicationService propertyAdminApplicationService) {
+        this.propertyAdminApplicationService = propertyAdminApplicationService;
+    }
+
+    @ApiOperation("物业管理员详情")
+    @GetMapping("/detail/{adminId}")
+    public ApiResponse<ProAdminDto> detail(@PathVariable String adminId) {
+        ProAdminDto result = propertyAdminApplicationService.detail(adminId);
+        return ApiResponse.createSuccess(result);
+    }
 }
 
