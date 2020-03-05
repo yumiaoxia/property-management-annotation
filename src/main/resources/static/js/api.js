@@ -6,6 +6,7 @@ const api = {
     adminLogin: `${base}/admin/login`,
     index: `${base}/admin/index`,
     adminDetail: `${base}/admin/detail`,
-    peopertyAdminDetail: `${base}/propertyAdmin/detail`
+    propertyAdminDetail: `${base}/propertyAdmin/detail`,
+    feelist: `${base}/propertyAdmin/detail`
 
 }

@@ -98,7 +98,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-
+        url = api.feelist
     })
 </script>
 
