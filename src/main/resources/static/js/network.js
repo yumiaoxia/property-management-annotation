@@ -2,11 +2,11 @@
 var requestHandler = {
     url: '',
     data: {},
-    success: function (response) {
-        console.log(JSON.stringify(response));
+    success: function () {
+
     },
-    error: function (error) {
-        console.log(JSON.stringify(error));
+    error: function () {
+
     }
 }
 
@@ -15,8 +15,17 @@ function post(requestHandler) {
         url: requestHandler.url,
         data: requestHandler.data,
         type: 'POST',
-        success: requestHandler.success,
-        error: requestHandler.error
+        success: function (response) {
+            if (response.success) {
+                return response.data;
+            } else {
+                alert(response.message)
+            }
+            requestHandler.success()
+        },
+        error: function (error) {
+            window.location.href = "../error.page"
+        }
     })
 }
 

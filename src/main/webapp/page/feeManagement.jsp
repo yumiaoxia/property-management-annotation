@@ -82,23 +82,25 @@
         <button id="delete">删除</button>
     </div>
     <br/>
-    <table>
-        <table class="member-table">
-            <tr>
-                <th><input type="checkbox"></th>
-                <th>家政/维修预约项目类型</th>
-                <th>预约项目费用</th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>xxx</td>
-                <td>xxx</td>
-            </tr>
-        </table>
-        <p>显示第 x 到 第 x 条记录,总共 x 条记录</p>
-
-
+    <table class="member-table">
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>家政/维修预约项目类型</th>
+            <th>预约项目费用</th>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>xxx</td>
+            <td>xxx</td>
+        </tr>
+    </table>
+    <p>显示第 x 到 第 x 条记录,总共 x 条记录</p>
 </div>
+<script type="text/javascript">
+    $(function () {
+
+    })
+</script>
 
 </body>
 </html>

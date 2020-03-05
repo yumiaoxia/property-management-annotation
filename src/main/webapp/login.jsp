@@ -126,15 +126,11 @@
                             localStorage.setItem("currentUser", JSON.stringify(response.data));
                             window.location.href = "main.jsp"
                         } else {
-                            alert(response.message);
                             loginForm.role.value = "0";
                             loginForm.username.value = "";
                             loginForm.password.value = "";
                         }
                     },
-                    error: function (error) {
-                        alert("网络错误")
-                    }
                 })
             }
         })
