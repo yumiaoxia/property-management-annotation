@@ -18,7 +18,7 @@
         <slf4j.version>1.6.6</slf4j.version>
         <mybatis.version>3.3.1</mybatis.version>
         <mysql.version>8.0.17</mysql.version>
-        <hibernate.validator.version>6.0.5.final</hibernate.validator.version>
+        <hibernate.validator.version>6.0.20.Final</hibernate.validator.version>
 
 
         <maven.compiler.source>1.8</maven.compiler.source>
